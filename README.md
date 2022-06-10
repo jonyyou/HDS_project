@@ -207,7 +207,7 @@ HDS_pcap will output feature vectors to a **.csv file, while HDS_capture will ou
 - The **traffic collection system** in the switch is responsible for collecting sampled traffic and then sending the traffic to the **traffic analysis server**. 
 - We run HDS_capture on the traffic analysis server to extract traffic features for real-time traffic classification using the well-trained traffic classifier. The features are stored in the Redis database.
 
-- ![Sytem topology](./images/system.png)  
+- ![Sytem topology](/images/system.png)  
 
 <center>Figure 1. System Topology</center>  
 
