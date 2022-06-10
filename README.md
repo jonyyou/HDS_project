@@ -52,66 +52,30 @@ HDS_random_seed = 2022;
 HDS_ratio = 1;         //packet sampling ratio: 0(1/1),1-14(1/8, 1/16, ..., 1/32768, 1/65536)
 HDS_sketch_layer = 3;  //the number of sketch layers
 
-/*
-optional sketch layers:
-
-pso_IPPort---0, pso_IPPortPair---1, pso_IP_protocol---2, pso_IPPair---3, 
-pso_MACSubnet---4, pso_MACSubnetPair---5, pso_MAC---6, pso_MACPair---7, 
-pso_IPMAC---8, pso_MACSubnetB---9, pso_MACSubnetBPair---10
-pso_IP_no_protocol---11, pso_IPPair_no_protocol---12
-*/
-HDS_sketch_type1 = 7;  //layer1
-HDS_sketch_type2 = 4;  //layer2
-HDS_sketch_type3 = 11; //layer3
+HDS_sketch_type1 = 7;  //layer1: interface-level. flowkey: MAC pair
+HDS_sketch_type2 = 4;  //layer2: area-level. flowkey: (MAC, Subnet IP)
+HDS_sketch_type3 = 2; //layer3: host-level. flowkey: IP
 
 /* 
 optional statistical features:
 
 a --- forward Pck. (1B)
 b --- backward Pck.(1B)
-c --- forward length range (1,2,3,4...) set "MLSK_ThreCnt" ((Cnt+1)B)
-d --- backward length range (1,2,3,4...) set "MLSK_ThreCnt"((Cnt+1)B)
 e --- forward IP+port hash16 Distr. (2B)
 f --- backward IP+port hash16 Distr. (2B)
-g --- forward IP hash16 Distr. (2B)
-h --- backward IP hash16 Distr. (2B)
-i --- forward port hash16 Distr. (2B)
-j --- backward port hash16 Distr. (2B)
-k --- IP+port pair hash16 Distr. (2B)
-l --- forward payload sum of length. (2B)
-m --- backward payload sum of length. (2B)
-n --- forward payload length sum of squares. (4B)
-o --- backward payload length sum of squares. (4B)
 p --- forward Pck. speed
 q --- backward Pck. speed
-r --- forward payload speed
-s --- backward payload speed
-t --- forward IP+port hash8 Distr. (B)
-u --- backward IP+port hash8 Distr. (B)
-v --- forward IP hash8 Distr. (B)
-w --- backward IP hash8 Distr. (B)
-x --- forward port hash8 Distr. (B)
-y --- backward port hash8 Distr. (B)
-z --- IP+port pair hash8 Distr. (B)
-0 --- (TCP) forward PSH+SYN (1B)
-1 --- (TCP) backward PSH+SYN (1B)
-2 --- (TCP) forward SYN (1B)
-3 --- (TCP) backward SYN (1B)
-4 --- (TCP) forward SACK (1B)
-5 --- (TCP) backward SACK (1B)
-6 --- (TCP) Timestamp (1B)
 
 The features selected for detecting DDoS flooding attacks at each layer are "abefpq". 
-In pratice, the features for each layer can be changed to accomplish different measurement tasks as needed.
 */
 HDS_sketch_feature1 = "abefpq";    //the features at layer 1
 HDS_sketch_feature2 = "abefpq";    //the features at layer 2
 HDS_sketch_feature3 = "abefpq";    //the features at layer 3
 
 //hash bit
-HDS_sketch_hash_bit1 = 10;         //the number of columns in layer1 sketch     
-HDS_sketch_hash_bit2 = 12;         //the number of columns in layer2 sketch
-HDS_sketch_hash_bit3 = 12;         //the number of columns in layer3 sketch
+HDS_sketch_hash_bit1 = 10;         //the number of columns in layer1 sketch: 2^10     
+HDS_sketch_hash_bit2 = 12;         //the number of columns in layer2 sketch: 2^12
+HDS_sketch_hash_bit3 = 12;         //the number of columns in layer3 sketch: 2^12
 //threshold 
 HDS_sketch_threshold1 = 100;       //the featuren extraction threshold of layer1 sketch
 HDS_sketch_threshold2 = 100;       //the featuren extraction threshold of layer2 sketch
@@ -119,7 +83,8 @@ HDS_sketch_threshold3 = 100;       //the featuren extraction threshold of layer3
 ```
 
 2. **Run**
-
+Requirement: copy data.cfg to your running path.
+Notice: if you run HDS_pcap in Windows, you should also copy the four .dll files in /bin/win to your running path
 ```
 $ ./HDS_pcap
 ```
@@ -171,7 +136,7 @@ HDS_capture_time = 900;
 ​		**step2: modify the settings of HDS sketch**: the same in Usage 1.
 
 **2. Run**
-
+Requirement: copy data.cfg to your running path
 ```
 $ ./HDS_capture
 ```
