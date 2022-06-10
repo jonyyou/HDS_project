@@ -83,8 +83,11 @@ HDS_sketch_threshold3 = 100;       //the featuren extraction threshold of layer3
 ```
 
 2. **Run**
+
 Requirement: copy data.cfg to your running path.
+
 Notice: if you run HDS_pcap in Windows, you should also copy the four .dll files in /bin/win to your running path
+
 ```
 $ ./HDS_pcap
 ```
@@ -136,7 +139,9 @@ HDS_capture_time = 900;
 ​		**step2: modify the settings of HDS sketch**: the same in Usage 1.
 
 **2. Run**
+
 Requirement: copy data.cfg to your running path
+
 ```
 $ ./HDS_capture
 ```
